@@ -1,0 +1,38 @@
+.Box {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  padding: 2rem;
+  justify-content: center;
+
+  &--card {
+    width: 30%;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+    overflow: hidden;
+    border-radius: 5px 5px 0 0;
+    border: 1px solid #e1e1e1;
+    margin: 10px;
+    box-sizing: border-box;
+  }
+
+  img {
+    max-width: 300px;
+    // border-radius: 5px 5px 0 0;
+    display: block;
+    width: 100%;
+  }
+
+  &--card-content {
+    padding: 10px;
+  }
+  p {
+    color: grey;
+    font-size: 22px;
+  }
+  &--buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+}
