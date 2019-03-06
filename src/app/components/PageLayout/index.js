@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './index.scss';
+import logo from '../../../static/logo.png';
 
 function PageLayout({ children, navLinks }) {
   return (
     <div className="Page-Layout">
       <header>
-        <img
-          src="https://cdn.pixabay.com/photo/2016/07/08/09/18/bobtail-1503869_960_720.png"
-          alt="company logo"
-          className="Logo"
-        />
+        <img src={logo} alt="company logo" className="Logo" />
         <nav>
           {navLinks.map((link, i) => (
             <span key={i} className="Nav-Link">

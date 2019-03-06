@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ProductCard } from '../../components';
+import { ProductCard, ProductsContainer } from '../../components';
 
 function Favorites({ products, toggleFavorite }) {
   return (
-    <div className="Box">
+    <ProductsContainer>
       {products.map(product => (
         <ProductCard
           key={product.id}
@@ -12,7 +12,7 @@ function Favorites({ products, toggleFavorite }) {
           toggleFavorite={toggleFavorite}
         />
       ))}
-    </div>
+    </ProductsContainer>
   );
 }
 

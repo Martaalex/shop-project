@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './index.scss';
-import { ProductCard } from '../../components';
+import { ProductCard, ProductsContainer } from '../../components';
 
-function Shop({ products, toggleFavorite }) {
+function Shop({ products, toggleFavorite, updateCartCount }) {
   return (
-    <div className="Box">
+    <ProductsContainer>
       {products.map(product => (
         <ProductCard
           key={product.id}
           {...product}
           toggleFavorite={toggleFavorite}
+          updateCartCount={updateCartCount}
         />
       ))}
-    </div>
+    </ProductsContainer>
   );
 }
 
@@ -30,6 +30,7 @@ Shop.propTypes = {
     })
   ),
   toggleFavorite: PropTypes.func.isRequired,
+  updateCartCount: PropTypes.func.isRequired,
 };
 
 Shop.defaultProps = {

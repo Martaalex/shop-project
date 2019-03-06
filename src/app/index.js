@@ -1,6 +1,6 @@
 import React from 'react';
 import { MoonLoader } from 'react-spinners';
-import { Shop, Favorites } from './pages';
+import { Shop, Favorites, Cart } from './pages';
 import { PageLayout } from './components';
 
 const NAV_LINKS = ['shop', 'cart', 'favorites'].map(link => (
@@ -16,6 +16,7 @@ class App extends React.Component {
       products: [],
       error: null,
       loading: false,
+      route: 'shop',
     };
   }
 
@@ -27,6 +28,7 @@ class App extends React.Component {
         const products = json.map(product => ({
           ...product,
           isFavorite: false,
+          cartCount: 0,
         }));
         this.setState({ products, loading: false });
       })
@@ -47,18 +49,63 @@ class App extends React.Component {
     }));
   };
 
+  updateCartCount = (id, value) => {
+    this.setState(state => ({
+      products: state.products.map(product => {
+        if (product.id === id) {
+          return { ...product, cartCount: value };
+        }
+
+        return product;
+      }),
+    }));
+  };
+
+  renderRoute = () => {
+    const { route, products } = this.state;
+    switch (route) {
+      case 'shop':
+        return (
+          <Shop
+            products={products}
+            toggleFavorite={this.toggleFavorite}
+            updateCartCount={this.updateCartCount}
+          />
+        );
+
+      case 'cart':
+        return (
+          <Cart products={products.filter(product => product.cartCount > 0)} />
+        );
+
+      case 'favorites':
+        return (
+          <Favorites
+            products={products.filter(product => product.isFavorite)}
+            toggleFavorite={this.toggleFavorite}
+            updateCartCount={this.updateCartCount}
+          />
+        );
+
+      default:
+        return (
+          <Shop
+            products={products}
+            toggleFavorite={this.toggleFavorite}
+            updateCartCount={this.updateCartCount}
+          />
+        );
+    }
+  };
+
   render() {
-    const { products, loading, error } = this.state;
+    const { loading, error } = this.state;
     return (
       <PageLayout navLinks={NAV_LINKS}>
         {/* {error && alert(error)} */}
         {error && <span>{error}</span>}
         {loading && <MoonLoader />}
-        <Favorites
-          products={products.filter(product => product.isFavorite)}
-          toggleFavorite={this.toggleFavorite}
-        />
-        <Shop products={products} toggleFavorite={this.toggleFavorite} />
+        {this.renderRoute()}
       </PageLayout>
     );
   }
