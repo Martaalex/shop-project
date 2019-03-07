@@ -1,5 +1,11 @@
 import React from 'react';
 import { MoonLoader } from 'react-spinners';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+} from 'react-router-dom';
 import { Shop, Favorites, Cart } from './pages';
 import { PageLayout } from './components';
 
@@ -16,12 +22,9 @@ class App extends React.Component {
       products: [],
       error: null,
       loading: false,
-      route: 'shop',
     };
     this.NAV_LINKS = ['shop', 'cart', 'favorites'].map(link => (
-      <button type="button" onClick={() => this.setState({ route: link })}>
-        {link}
-      </button>
+      <Link to={`/${link}`}>{link}</Link>
     ));
   }
 
@@ -66,52 +69,53 @@ class App extends React.Component {
     }));
   };
 
-  renderRoute = () => {
-    const { route, products } = this.state;
-    switch (route) {
-      case 'shop':
-        return (
-          <Shop
-            products={products}
-            toggleFavorite={this.toggleFavorite}
-            updateCartCount={this.updateCartCount}
-          />
-        );
+  renderShop = () => {
+    const { products } = this.state;
 
-      case 'cart':
-        return (
-          <Cart products={products.filter(product => product.cartCount > 0)} />
-        );
+    return (
+      <Shop
+        products={products}
+        toggleFavorite={this.toggleFavorite}
+        updateCartCount={this.updateCartCount}
+      />
+    );
+  };
 
-      case 'favorites':
-        return (
-          <Favorites
-            products={products.filter(product => product.isFavorite)}
-            toggleFavorite={this.toggleFavorite}
-            updateCartCount={this.updateCartCount}
-          />
-        );
+  renderCart = () => {
+    const { products } = this.state;
 
-      default:
-        return (
-          <Shop
-            products={products}
-            toggleFavorite={this.toggleFavorite}
-            updateCartCount={this.updateCartCount}
-          />
-        );
-    }
+    return (
+      <Cart products={products.filter(product => product.cartCount > 0)} />
+    );
+  };
+
+  renderFavorites = () => {
+    const { products } = this.state;
+
+    return (
+      <Favorites
+        products={products.filter(product => product.isFavorite)}
+        toggleFavorite={this.toggleFavorite}
+        updateCartCount={this.updateCartCount}
+      />
+    );
   };
 
   render() {
     const { loading, error } = this.state;
     return (
-      <PageLayout navLinks={this.NAV_LINKS}>
-        {/* {error && alert(error)} */}
-        {error && <span>{error}</span>}
-        {loading && <MoonLoader />}
-        {this.renderRoute()}
-      </PageLayout>
+      <Router>
+        <PageLayout navLinks={this.NAV_LINKS}>
+          {/* {error && alert(error)} */}
+          {error && <span>{error}</span>}
+          {loading && <MoonLoader />}
+
+          <Route exact path="/shop" component={this.renderShop} />
+          <Route path="/favorites" component={this.renderFavorites} />
+          <Route path="/cart" component={this.renderCart} />
+          <Redirect exact from="/" to="/shop" />
+        </PageLayout>
+      </Router>
     );
   }
 }
