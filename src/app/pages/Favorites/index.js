@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ProductCard, ProductsContainer } from '../../components';
 
-function Favorites({ products, toggleFavorite }) {
+function Favorites({ products, toggleFavorite, updateCartCount }) {
   return (
     <ProductsContainer>
       {products.map(product => (
@@ -10,6 +10,7 @@ function Favorites({ products, toggleFavorite }) {
           key={product.id}
           {...product}
           toggleFavorite={toggleFavorite}
+          updateCartCount={updateCartCount}
         />
       ))}
     </ProductsContainer>
@@ -25,10 +26,10 @@ Favorites.propTypes = {
       currencySymbol: PropTypes.string.isRequired,
       id: PropTypes.string.isRequired,
       isFavorite: PropTypes.bool.isRequired,
-      toggleFavorite: PropTypes.func.isRequired,
     })
   ),
   toggleFavorite: PropTypes.func.isRequired,
+  updateCartCount: PropTypes.func.isRequired,
 };
 
 Favorites.defaultProps = {
