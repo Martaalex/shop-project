@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './index.scss';
-import logo from '../../../static/logo.png';
+import logo from '../../static/logo.png';
 
 function PageLayout({ children, navLinks }) {
   return (

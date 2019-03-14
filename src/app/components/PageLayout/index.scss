@@ -28,11 +28,14 @@
         line-height: 42px;
         background: transparent;
         border: none;
+        text-decoration: none;
         color: #fff;
         cursor: pointer;
-        transition: all 0.3 linear;
+        transition: all 0.3s linear;
+        padding: 5px 10px;
 
-        &:hover {
+        &:hover,
+        &.active {
           background: #fff;
           color: #46924a;
         }
