@@ -20,25 +20,16 @@ function Favorites({ products, toggleFavorite, updateCartCount }) {
 
 Favorites.propTypes = {
   products: PropTypes.arrayOf(
-    PropTypes.shape({
-      image: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.string.isRequired,
-      currencySymbol: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-      isFavorite: PropTypes.bool.isRequired,
-    })
-  ),
+    PropTypes.shape({ id: PropTypes.string.isRequired })
+  ).isRequired,
   toggleFavorite: PropTypes.func.isRequired,
   updateCartCount: PropTypes.func.isRequired,
 };
 
-Favorites.defaultProps = {
-  products: [],
-};
-
 function mapStateToProps(state) {
-  return { products: state.products.filter(product => product.isFavorite) };
+  return {
+    products: state.shop.products.filter(product => product.isFavorite),
+  };
 }
 
 function mapStateDispatchToProps(dispatch) {

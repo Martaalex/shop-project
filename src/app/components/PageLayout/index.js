@@ -7,14 +7,8 @@ function PageLayout({ children, navLinks }) {
   return (
     <div className="Page-Layout">
       <header>
-        <img src={logo} alt="company logo" className="Logo" />
-        <nav>
-          {navLinks.map((link, i) => (
-            <span key={i} className="Nav-Link">
-              {link}
-            </span>
-          ))}
-        </nav>
+        <img src={logo} alt="Company logo" className="Logo" />
+        <nav>{navLinks}</nav>
       </header>
       <main>{children}</main>
       <footer>© Copyright 2019</footer>
