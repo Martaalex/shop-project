@@ -29,7 +29,7 @@ Shop.propTypes = {
 
 const enhance = connect(
   state => ({
-    products: state.shop.products,
+    products: shop.selectors.getProducts(state),
   }),
   dispatch => ({
     toggleFavorite: id =>
