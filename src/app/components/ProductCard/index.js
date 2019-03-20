@@ -50,11 +50,11 @@ ProductCard.propTypes = {
   price: PropTypes.string.isRequired,
   currencySymbol: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  isFavorite: PropTypes.bool.isRequired,
-  cartCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-    .isRequired,
+  isFavorite: PropTypes.bool,
+  cartCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   toggleFavorite: PropTypes.func.isRequired,
   updateCartCount: PropTypes.func.isRequired,
 };
+ProductCard.defaultProps = { cartCount: 0, isFavorite: null };
 
 export default ProductCard;

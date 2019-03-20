@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { MoonLoader } from 'react-spinners';
 import {
@@ -101,5 +102,12 @@ const enhance = connect(
     logout: bindActionCreators(auth.actions.logout, dispatch),
   })
 );
+
+App.propTypes = {
+  getProducts: PropTypes.func.isRequired,
+  isLogged: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired,
+};
 
 export default enhance(App);
